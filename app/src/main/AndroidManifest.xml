@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ylines">
         <activity
-            android:name=".VerContato"
+            android:name=".EditarContato"
             android:exported="false" />
         <activity
-            android:name=".EditarContato"
+            android:name=".VerContato"
             android:exported="false" />
         <activity
             android:name=".CriarContato"
