@@ -79,8 +79,8 @@
 
     <Button
         android:id="@+id/btnAddContato"
-        android:layout_width="42dp"
-        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_height="57dp"
         android:paddingLeft="0dp"
         android:paddingTop="0dp"
         android:paddingRight="0dp"
