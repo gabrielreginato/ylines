@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ylines">
         <activity
+            android:name=".Test"
+            android:exported="false" />
+        <activity
             android:name=".EditarContato"
             android:exported="false" />
         <activity

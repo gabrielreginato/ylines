@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnFiltroNome;
     Button btnFiltroData;
 
+    ListView listViewContatos;
+
     Button btnAddContato;
 
     @Override
@@ -32,10 +34,18 @@ public class MainActivity extends AppCompatActivity {
 
         btnAddContato = findViewById(R.id.btnAddContato);
 
+        listViewContatos = findViewById(R.id.listViewContatos);
+
         //Troca de tela
         btnAddContato.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CriarContato.class);
             startActivity(intent);
+        });
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
         });
     }
 }

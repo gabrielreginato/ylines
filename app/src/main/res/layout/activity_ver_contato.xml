@@ -5,12 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#191A1C"
     tools:context=".VerContato">
 
     <Button
         android:id="@+id/btnVoltar"
         android:layout_width="37dp"
         android:layout_height="43dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#FBAC18"
         android:paddingLeft="0dp"
         android:paddingTop="0dp"
         android:paddingRight="0dp"
@@ -18,130 +22,143 @@
         android:text="❮"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/txtNovoContato"
-        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.355" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtNovoContato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="30dp"
         android:text="Nome Completo do Contato"
+        android:textColor="#FFFFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
-
-    <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:circularflow_defaultRadius="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNovoContato"
-            app:layout_constraintVertical_bias="0.028"
-            tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.008" />
 
     <Button
         android:id="@+id/btnMapa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
         android:width="130sp"
+        android:backgroundTint="#FBAC18"
         android:text="Ver no Mapa"
+        app:layout_constraintBottom_toTopOf="@+id/btnCopiarTelefone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/btnLigar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:width="130sp"
-        android:text="Ligar"
-        app:layout_constraintEnd_toStartOf="@+id/btnMapa"
-        app:layout_constraintHorizontal_bias="0.648"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/btnCopiarTelefone"
-        android:layout_width="53dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="32dp"
-        android:paddingLeft="0dp"
-        android:paddingTop="0dp"
-        android:paddingRight="0dp"
-        android:paddingBottom="0dp"
-        android:text="📋"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMapa" />
-
-    <TextView
-        android:id="@+id/txtTelefone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="(XX) XXXXX-XXXX"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLigar"
-        app:layout_constraintVertical_bias="0.117" />
-
-    <Button
-        android:id="@+id/btnCopiarEndereco"
-        android:layout_width="53dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="4dp"
-        android:paddingLeft="0dp"
-        android:paddingTop="0dp"
-        android:paddingRight="0dp"
-        android:paddingBottom="0dp"
-        android:text="📋"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
-        app:layout_constraintStart_toEndOf="@+id/txtEndereco"
-        app:layout_constraintTop_toBottomOf="@+id/btnCopiarTelefone" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txtCidadeUf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cascavel, PR"
+        android:layout_marginLeft="30dp"
+        android:text="Cornélio Procópio, PR"
+        android:textColor="#FFFFFFFF"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTelefone"
-        app:layout_constraintVertical_bias="0.362" />
+        app:layout_constraintTop_toBottomOf="@+id/txtEndereco"
+        app:layout_constraintVertical_bias="0.002" />
 
     <TextView
         android:id="@+id/txtEndereco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rua das Acácias, 245"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="Endereço Completo, 123"
+        android:textColor="#FFFFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTelefone"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnLigar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:width="130sp"
+        android:backgroundTint="#FBAC18"
+        android:text="Ligar"
+        app:layout_constraintEnd_toStartOf="@+id/btnMapa"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageButton
+        android:id="@+id/btnCopiarEndereco"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/fundo_redondo"
+        android:backgroundTint="#FBAC18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCopiarTelefone"
+        app:srcCompat="?attr/actionModeCopyDrawable" />
+
+    <TextView
+        android:id="@+id/txtTelefone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="(XX) XXXXX-XXXX"
+        android:textColor="#FFFFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTelefone"
-        app:layout_constraintVertical_bias="0.249" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLigar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/btnCopiarTelefone"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/fundo_redondo"
+        android:backgroundTint="#FBAC18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLigar"
+        app:srcCompat="?attr/actionModeCopyDrawable"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
+        android:minWidth="150dp"
+        android:minHeight="150dp"
+        android:src="@drawable/perfil_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/edit_text_border"
+        app:circularflow_defaultRadius="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNovoContato"
+        app:layout_constraintVertical_bias="0.0"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

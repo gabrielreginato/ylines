@@ -5,122 +5,170 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#191A1C"
     tools:context=".CriarContato">
 
     <TextView
         android:id="@+id/txtNovoContato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
         android:text="Novo Contato"
+        android:textColor="#FFFFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintHorizontal_bias="0.232"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintVertical_bias="0.009" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
+        android:minWidth="150dp"
+        android:minHeight="150dp"
+        android:src="@drawable/perfil_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
         app:circularflow_defaultRadius="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNovoContato"
-        app:layout_constraintVertical_bias="0.028"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintVertical_bias="0.001"
+        tools:srcCompat="@tools:sample/avatars[0]" />
 
     <EditText
         android:id="@+id/edtTxtNome"
         android:layout_width="338dp"
         android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:hint="Nome"
+        android:hint="@string/nome"
         android:inputType="text"
+        android:textColor="#FFFFFFFF"
+        android:textColorHint="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <EditText
-        android:id="@+id/edtTxtEndereco"
-        android:layout_width="338dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="Endereço"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtTelefone"
-        app:layout_constraintVertical_bias="0.078" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/edtTxtTelefone"
         android:layout_width="338dp"
         android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:hint="Telefone (XX) XXXXX-XXXX"
+        android:hint="@string/telefone_xx_xxxxx_xxxx"
         android:inputType="text"
+        android:textColor="#FFFFFFFF"
+        android:textColorHint="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtTxtNome"
-        app:layout_constraintVertical_bias="0.048" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/edtTxtCidade"
+        android:id="@+id/edtTxtEndereco"
         android:layout_width="338dp"
         android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:hint="Cidade"
+        android:hint="@string/endere_o"
         android:inputType="text"
+        android:textColor="#FFFFFFFF"
+        android:textColorHint="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtEndereco"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtTelefone"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/edtTxtUf"
         android:layout_width="338dp"
         android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edit_text_border"
         android:ems="10"
-        android:hint="UF"
+        android:hint="@string/uf"
         android:inputType="text"
+        android:textColor="#FFFFFFFF"
+        android:textColorHint="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtTxtCidade"
-        app:layout_constraintVertical_bias="0.139" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/edtTxtCidade"
+        android:layout_width="338dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/edit_text_border"
+        android:ems="10"
+        android:hint="@string/cidade"
+        android:inputType="text"
+        android:textColor="#FFFFFFFF"
+        android:textColorHint="#FFFFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtEndereco"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnSalvar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="#FBAC18"
         android:text="Salvar Contato"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtTxtUf"
-        app:layout_constraintVertical_bias="0.193" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnVoltar"
         android:layout_width="37dp"
         android:layout_height="43dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#FBAC18"
         android:paddingLeft="0dp"
         android:paddingTop="0dp"
         android:paddingRight="0dp"
@@ -128,9 +176,9 @@
         android:text="❮"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/txtNovoContato"
-        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

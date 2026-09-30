@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ylines</string>
+    <string name="pesquisar_contato">Pesquisar contato...</string>
+    <string name="uf">UF</string>
+    <string name="cidade">Cidade</string>
+    <string name="telefone_xx_xxxxx_xxxx">Telefone (XX) XXXXX-XXXX</string>
+    <string name="endere_o">Endereço</string>
+    <string name="nome">Nome</string>
 </resources>
