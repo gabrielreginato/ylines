@@ -22,6 +22,12 @@ public class EditarContato extends AppCompatActivity {
 
     Button btnSalvar;
 
+    String nome;
+    String telefone;
+    String endereco;
+    String cidade;
+    String uf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,5 +59,19 @@ public class EditarContato extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Intent intent = getIntent();
+        nome = intent.getStringExtra("nome");
+        telefone = intent.getStringExtra("telefone");  
+        endereco = intent.getStringExtra("endereco");
+        cidade = intent.getStringExtra("cidade");
+        uf = intent.getStringExtra("uf");
+
+        edtTxtNome.setText(nome);
+        edtTxtTelefone.setText(telefone);
+        edtTxtEndereco.setText(endereco);
+        edtTxtCidade.setText(cidade);
+        edtTxtUf.setText(uf);
+
     }
 }

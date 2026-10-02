@@ -3,6 +3,8 @@ package com.example.ylines;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +17,19 @@ public class VerContato extends AppCompatActivity {
 
     Button btnLigar;
     Button btnMapa;
-    Button btnCopiarTelefone;
-    Button btnCopiarEndereco;
+    ImageButton btnCopiarTelefone;
+    ImageButton btnCopiarEndereco;
 
+    TextView txtNome;
+    TextView txtTelefone;
+    TextView txtEndereco;
+    TextView txtCidadeUf;
+
+    String nome;
+    String telefone;
+    String endereco;
+    String cidade;
+    String uf;
 
 
     @Override
@@ -25,6 +37,11 @@ public class VerContato extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ver_contato);
+
+        txtNome = findViewById(R.id.txtNome);
+        txtTelefone = findViewById(R.id.txtTelefone);
+        txtEndereco = findViewById(R.id.txtEndereco);
+        txtCidadeUf = findViewById(R.id.txtCidadeUf);
 
         btnVoltar = findViewById(R.id.btnVoltar);
 
@@ -44,5 +61,23 @@ public class VerContato extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Intent intent = getIntent();
+
+        nome = intent.getStringExtra("nome");
+        telefone = intent.getStringExtra("telefone");
+        endereco = intent.getStringExtra("endereco");
+        cidade = intent.getStringExtra("cidade");
+        uf = intent.getStringExtra("uf");
+
+        txtNome.setText(nome);
+        txtTelefone.setText(telefone);
+        txtEndereco.setText(endereco);
+        
+        if(endereco.length() > 24) {
+            txtEndereco.setText(endereco.substring(0, 24) + "...");
+        }
+        
+        txtCidadeUf.setText(cidade + "/" + uf);
     }
 }

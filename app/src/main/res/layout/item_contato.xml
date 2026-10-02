@@ -5,38 +5,59 @@
     android:orientation="horizontal"
     android:padding="12dp">
 
+    <!--alinhar ImageButton ao centro vertical-->
+    <ImageButton
+        android:id="@+id/btnVisualizar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:maxWidth="40dp"
+        android:maxHeight="40dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/perfil_image"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_gravity="center_vertical"
+        />
+
     <LinearLayout
+        android:id="@+id/linearLayoutContato"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
+
 
         <TextView
             android:id="@+id/txtNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ana Souza"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="#FFFFFFFF"
+            />
 
         <TextView
             android:id="@+id/txtTelefone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(45) 98812-3456"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="#FFFFFFFF"
+            />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnVisualizar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ver" />
-
-    <Button
+    <!--Ícone de lápis, da própria iconografia do Android Studio-->
+    <ImageButton
         android:id="@+id/btnEditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Editar" />
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/pencil"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="Editar contato" />
 
 </LinearLayout>

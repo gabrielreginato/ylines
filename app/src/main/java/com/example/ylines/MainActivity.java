@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +23,16 @@ public class MainActivity extends AppCompatActivity {
     ListView listViewContatos;
 
     Button btnAddContato;
+
+    private void _abrirEditarContato(Contato contato) {
+        Intent intent = new Intent(MainActivity.this, EditarContato.class);
+        intent.putExtra("nome", contato.getNome());
+        intent.putExtra("telefone", contato.getTelefone());
+        intent.putExtra("endereco", contato.getEndereco());
+        intent.putExtra("cidade", contato.getCidade());
+        intent.putExtra("uf", contato.getUf());
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,5 +60,50 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Contatos de teste
+        ArrayList<Contato> contatos = new ArrayList<>();
+
+        contatos.add(new Contato(
+                "Ana Souza",
+                "(45) 98812-3456",
+                "Rua das Palmeiras, 456 - Centro",
+                "Cascavel",
+                "PR"
+        ));
+
+        contatos.add(new Contato(
+                "Bruno Lima",
+                "(41) 98765-4321",
+                "Rua das Flores, 123 - Centro",
+                "Curitiba",
+                "PR"
+        ));
+
+        contatos.add(new Contato(
+                "Carla Mendes",
+                "(11) 91234-5678",
+                "Av. Paulista, 1000 - São Paulo/SP",
+                "São Paulo",
+                "SP"
+        ));
+
+        contatos.add(new com.example.ylines.Contato(
+                "Diego Pereira",
+                "(47) 99876-5432",
+                "Rua XV de Novembro, 500 - Blumenau/SC",
+                "Blumenau",
+                "SC"
+        ));
+
+        // Adapter
+        ContatoAdapter adapter = new ContatoAdapter(
+                MainActivity.this,
+                contatos
+        );
+
+        listViewContatos.setAdapter(adapter);
+
+        
     }
 }

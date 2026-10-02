@@ -9,7 +9,7 @@
     tools:context=".CriarContato">
 
     <TextView
-        android:id="@+id/txtNovoContato"
+        android:id="@+id/txtNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNovoContato"
+        app:layout_constraintTop_toBottomOf="@+id/txtNome"
         app:layout_constraintVertical_bias="0.001"
         tools:srcCompat="@tools:sample/avatars[0]" />
 
@@ -175,7 +175,7 @@
         android:paddingBottom="0dp"
         android:text="❮"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toStartOf="@+id/txtNovoContato"
+        app:layout_constraintEnd_toStartOf="@+id/txtNome"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
