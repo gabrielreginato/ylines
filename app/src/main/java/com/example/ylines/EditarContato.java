@@ -22,11 +22,14 @@ public class EditarContato extends AppCompatActivity {
 
     Button btnSalvar;
 
+    int id;
     String nome;
     String telefone;
     String endereco;
     String cidade;
     String uf;
+
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +47,25 @@ public class EditarContato extends AppCompatActivity {
 
         btnSalvar = findViewById(R.id.btnSalvar);
 
+        dbHelper = new DatabaseHelper(this);
+
         btnVoltar.setOnClickListener(v -> {
             Intent intent = new Intent(EditarContato.this, MainActivity.class);
             startActivity(intent);
         });
 
         btnSalvar.setOnClickListener(v -> {
-            Intent intent = new Intent(EditarContato.this, MainActivity.class);
-            startActivity(intent);
+            dbHelper.atualizarContato(
+                id,
+                edtTxtNome.getText().toString(),
+                edtTxtTelefone.getText().toString(),
+                edtTxtEndereco.getText().toString(),
+                edtTxtCidade.getText().toString(),
+                edtTxtUf.getText().toString()
+            );
+
+            setResult(RESULT_OK);
+            finish();
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -61,6 +75,7 @@ public class EditarContato extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
+        id = intent.getIntExtra("id", -1);
         nome = intent.getStringExtra("nome");
         telefone = intent.getStringExtra("telefone");  
         endereco = intent.getStringExtra("endereco");
@@ -72,6 +87,5 @@ public class EditarContato extends AppCompatActivity {
         edtTxtEndereco.setText(endereco);
         edtTxtCidade.setText(cidade);
         edtTxtUf.setText(uf);
-
     }
 }

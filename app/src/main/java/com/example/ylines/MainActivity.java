@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
     ListView listViewContatos;
 
     Button btnAddContato;
+
+    DatabaseHelper dbHelper;
+
+    List<Contato> contatos = new ArrayList<>();
+
+    ContatoAdapter adapter;
 
     private void _abrirEditarContato(Contato contato) {
         Intent intent = new Intent(MainActivity.this, EditarContato.class);
@@ -49,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         listViewContatos = findViewById(R.id.listViewContatos);
 
+        dbHelper = new DatabaseHelper(this);
+
         //Troca de tela
         btnAddContato.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CriarContato.class);
@@ -61,49 +70,24 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Contatos de teste
-        ArrayList<Contato> contatos = new ArrayList<>();
-
-        contatos.add(new Contato(
-                "Ana Souza",
-                "(45) 98812-3456",
-                "Rua das Palmeiras, 456 - Centro",
-                "Cascavel",
-                "PR"
-        ));
-
-        contatos.add(new Contato(
-                "Bruno Lima",
-                "(41) 98765-4321",
-                "Rua das Flores, 123 - Centro",
-                "Curitiba",
-                "PR"
-        ));
-
-        contatos.add(new Contato(
-                "Carla Mendes",
-                "(11) 91234-5678",
-                "Av. Paulista, 1000 - São Paulo/SP",
-                "São Paulo",
-                "SP"
-        ));
-
-        contatos.add(new com.example.ylines.Contato(
-                "Diego Pereira",
-                "(47) 99876-5432",
-                "Rua XV de Novembro, 500 - Blumenau/SC",
-                "Blumenau",
-                "SC"
-        ));
+        contatos = dbHelper.buscarTodos();
 
         // Adapter
-        ContatoAdapter adapter = new ContatoAdapter(
+        adapter = new ContatoAdapter(
                 MainActivity.this,
                 contatos
         );
 
         listViewContatos.setAdapter(adapter);
+    }
 
-        
+    protected void onResume() {
+        super.onResume();
+
+        if(dbHelper != null && adapter != null) {
+            contatos.clear();
+            contatos.addAll(dbHelper.buscarTodos());
+            adapter.notifyDataSetChanged();
+        }
     }
 }

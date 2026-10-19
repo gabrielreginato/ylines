@@ -1,13 +1,15 @@
 package com.example.ylines;
 
 public class Contato {
+    private int id;
     private String nome;
     private String telefone;
     private String endereco;
     private String cidade;
     private String uf;
 
-    public Contato(String nome, String telefone, String endereco, String cidade, String uf) {
+    public Contato(int id, String nome, String telefone, String endereco, String cidade, String uf) {
+        this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
@@ -35,7 +37,9 @@ public class Contato {
         return uf;
     }
 
-    public void setNome(String nome) {
+    public int getId() { return id; }
+
+    /*public void setNome(String nome) {
         this.nome = nome;
     }
 
@@ -53,5 +57,5 @@ public class Contato {
 
     public void setUf(String uf) {
         this.uf = uf;
-    }
+    }*/
 }
