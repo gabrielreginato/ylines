@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,8 @@ public class CriarContato extends AppCompatActivity {
 
     Button btnSalvar;
 
+    private DatabaseHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,14 +43,25 @@ public class CriarContato extends AppCompatActivity {
 
         btnSalvar = findViewById(R.id.btnSalvar);
 
+        dbHelper = new DatabaseHelper(this);
+
         btnVoltar.setOnClickListener(v -> {
             Intent intent = new Intent(CriarContato.this, MainActivity.class);
             startActivity(intent);
         });
 
         btnSalvar.setOnClickListener(v -> {
-            Intent intent = new Intent(CriarContato.this, MainActivity.class);
-            startActivity(intent);
+            String nome = edtTxtNome.getText().toString();
+            String telefone = edtTxtTelefone.getText().toString();
+            String endereco = edtTxtEndereco.getText().toString();
+            String cidade = edtTxtCidade.getText().toString();
+            String uf = edtTxtUf.getText().toString();
+
+            dbHelper.inserirContato(nome, telefone, endereco, cidade, uf);
+
+            Toast.makeText(CriarContato.this, "Contato adicionado!", Toast.LENGTH_SHORT).show();
+
+            atualizarListaContatos();
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -55,5 +69,10 @@ public class CriarContato extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void atualizarListaContatos() {
+        Intent intent = new Intent(CriarContato.this, MainActivity.class);
+        startActivity(intent);
     }
 }

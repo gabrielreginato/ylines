@@ -50,6 +50,7 @@ public class ContatoAdapter extends BaseAdapter {
         TextView txtTelefone = convertView.findViewById(R.id.txtTelefone);
         ImageButton btnEditar = convertView.findViewById(R.id.btnEditar);
         ImageButton btnVisualizar = convertView.findViewById(R.id.btnVisualizar);
+        ImageButton btnExcluir = convertView.findViewById(R.id.btnExcluir);
         LinearLayout linearLayoutContato = convertView.findViewById(R.id.linearLayoutContato);
 
         txtNome.setText(contato.getNome());
@@ -57,6 +58,7 @@ public class ContatoAdapter extends BaseAdapter {
 
        btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditarContato.class);
+            intent.putExtra("id", contato.getId());
             intent.putExtra("nome", contato.getNome());
             intent.putExtra("telefone", contato.getTelefone());
             intent.putExtra("endereco", contato.getEndereco());
@@ -73,6 +75,13 @@ public class ContatoAdapter extends BaseAdapter {
             intent.putExtra("cidade", contato.getCidade());
             intent.putExtra("uf", contato.getUf());
             context.startActivity(intent);
+        });
+
+        btnExcluir.setOnClickListener(v -> {
+            DatabaseHelper dbHelper = new DatabaseHelper(context);
+            dbHelper.deletarContato(contato.getId());
+            contatos.remove(position);
+            notifyDataSetChanged();
         });
 
         linearLayoutContato.setOnClickListener(v -> {
