@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -82,6 +83,7 @@ public class ContatoAdapter extends BaseAdapter {
             dbHelper.deletarContato(contato.getId());
             contatos.remove(position);
             notifyDataSetChanged();
+            Toast.makeText(context, "Contato excluído", Toast.LENGTH_SHORT).show();
         });
 
         linearLayoutContato.setOnClickListener(v -> {

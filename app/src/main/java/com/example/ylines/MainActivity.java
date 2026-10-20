@@ -18,8 +18,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     EditText edtTxtPesquisar;
-    Button btnFiltroNome;
-    Button btnFiltroData;
+    Button btnOrdNome;
+    Button btnOrdData;
 
     ListView listViewContatos;
 
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         edtTxtPesquisar = findViewById(R.id.edtTxtPesquisar);
 
-        btnFiltroNome = findViewById(R.id.btnFiltroNome);
-        btnFiltroData = findViewById(R.id.btnFiltroData);
+        btnOrdNome = findViewById(R.id.btnOrdNome);
+        btnOrdData = findViewById(R.id.btnOrdData);
 
         btnAddContato = findViewById(R.id.btnAddContato);
 
@@ -58,10 +58,44 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
+        btnOrdNome.setOnClickListener(v -> {
+            edtTxtPesquisar.setText("");
+
+            contatos.clear();
+            contatos.addAll(dbHelper.buscarTodosOrdenadosPorNome());
+            adapter.notifyDataSetChanged();
+        });
+
+        btnOrdData.setOnClickListener(v -> {
+            edtTxtPesquisar.setText("");
+
+            contatos.clear();
+            contatos.addAll(dbHelper.buscarTodosOrdenadosPorData());
+            adapter.notifyDataSetChanged();
+        });
+
         //Troca de tela
         btnAddContato.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CriarContato.class);
             startActivity(intent);
+        });
+
+        edtTxtPesquisar.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String textoPesquisa = s.toString();
+                contatos.clear();
+                contatos.addAll(dbHelper.buscarContatosPorNome(textoPesquisa));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(android.text.Editable s) {
+            }
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
