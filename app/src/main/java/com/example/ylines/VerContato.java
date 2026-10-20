@@ -1,10 +1,13 @@
 package com.example.ylines;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,6 +63,24 @@ public class VerContato extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        btnCopiarTelefone.setOnClickListener(v -> {
+            ClipboardManager clopboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+
+            ClipData clip = ClipData.newPlainText("telefone", telefone);
+            clopboard.setPrimaryClip(clip);
+
+            Toast.makeText(this, "Telefone copiado para a área de transferência", Toast.LENGTH_SHORT).show();
+        });
+
+        btnCopiarEndereco.setOnClickListener(v -> {
+            ClipboardManager clopboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+
+            ClipData clip = ClipData.newPlainText("endereco", endereco);
+            clopboard.setPrimaryClip(clip);
+
+            Toast.makeText(this, "Endereço copiado para a área de transferência", Toast.LENGTH_SHORT).show();
         });
 
         Intent intent = getIntent();

@@ -83,6 +83,81 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return lista;
     }
 
+    public List<Contato> buscarTodosOrdenadosPorNome() {
+        List<Contato> lista = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABELA_CONTATOS + " ORDER BY " + COLUNA_NOME + " ASC";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String nome = cursor.getString(1);
+                String telefone = cursor.getString(2);
+                String endereco = cursor.getString(3);
+                String cidade = cursor.getString(4);
+                String uf = cursor.getString(5);
+
+                lista.add(new Contato(id, nome, telefone, endereco, cidade, uf));
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return lista;
+    }
+
+    public List<Contato> buscarTodosOrdenadosPorData() {
+        List<Contato> lista = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABELA_CONTATOS + " ORDER BY " + COLUNA_ID + " DESC";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String nome = cursor.getString(1);
+                String telefone = cursor.getString(2);
+                String endereco = cursor.getString(3);
+                String cidade = cursor.getString(4);
+                String uf = cursor.getString(5);
+
+                lista.add(new Contato(id, nome, telefone, endereco, cidade, uf));
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return lista;
+    }
+
+    public List<Contato> buscarContatosPorNome(String nome) {
+        List<Contato> lista = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABELA_CONTATOS + " WHERE " + COLUNA_NOME + " LIKE ?";
+        Cursor cursor = db.rawQuery(query, new String[]{"%" + nome + "%"});
+
+        if(cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                String nomeContato = cursor.getString(1);
+                String telefone = cursor.getString(2);
+                String endereco = cursor.getString(3);
+                String cidade = cursor.getString(4);
+                String uf = cursor.getString(5);
+
+                lista.add(new Contato(id, nomeContato, telefone, endereco, cidade, uf));
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return lista;
+    }
+
     public void deletarTodosOsEstudos() {
         SQLiteDatabase db = this.getWritableDatabase();
 
