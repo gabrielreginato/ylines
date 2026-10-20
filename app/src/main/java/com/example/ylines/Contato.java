@@ -7,14 +7,16 @@ public class Contato {
     private String endereco;
     private String cidade;
     private String uf;
+    private String imagemPerfilPath;
 
-    public Contato(int id, String nome, String telefone, String endereco, String cidade, String uf) {
+    public Contato(int id, String nome, String telefone, String endereco, String cidade, String uf, String imagemPerfilPath) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
         this.cidade = cidade;
         this.uf = uf;
+        this.imagemPerfilPath = imagemPerfilPath;
     }
 
     public String getNome() {
@@ -37,7 +39,13 @@ public class Contato {
         return uf;
     }
 
-    public int getId() { return id; }
+    public int getId() { 
+        return id; 
+    }
+
+    public String getImagemPerfilPath() {
+        return imagemPerfilPath;
+    }
 
     /*public void setNome(String nome) {
         this.nome = nome;

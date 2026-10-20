@@ -3,9 +3,11 @@ package com.example.ylines;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,8 +17,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.File;
+
 public class VerContato extends AppCompatActivity {
     Button btnVoltar;
+
+    ImageView imageView;
 
     Button btnLigar;
     Button btnMapa;
@@ -33,6 +39,7 @@ public class VerContato extends AppCompatActivity {
     String endereco;
     String cidade;
     String uf;
+    String imagemPerfilPath;
 
 
     @Override
@@ -40,6 +47,8 @@ public class VerContato extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ver_contato);
+
+        imageView = findViewById(R.id.imageView);
 
         txtNome = findViewById(R.id.txtNome);
         txtTelefone = findViewById(R.id.txtTelefone);
@@ -90,6 +99,12 @@ public class VerContato extends AppCompatActivity {
         endereco = intent.getStringExtra("endereco");
         cidade = intent.getStringExtra("cidade");
         uf = intent.getStringExtra("uf");
+        imagemPerfilPath = intent.getStringExtra("imagemPerfilPath");
+
+        /*Encontrar imagem por imagemPerfilPath */
+        if(imagemPerfilPath != null && !imagemPerfilPath.isEmpty()) {
+            imageView.setImageURI(Uri.fromFile(new File(imagemPerfilPath)));
+        }
 
         txtNome.setText(nome);
         txtTelefone.setText(telefone);
