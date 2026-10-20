@@ -141,6 +141,8 @@
 
     <ImageView
         android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
@@ -149,11 +151,8 @@
         android:maxHeight="150dp"
         android:minWidth="150dp"
         android:minHeight="150dp"
-        android:src="@drawable/perfil_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
         android:scaleType="centerCrop"
-        android:background="@drawable/edit_text_border"
+        android:src="@drawable/perfil_image"
         app:circularflow_defaultRadius="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

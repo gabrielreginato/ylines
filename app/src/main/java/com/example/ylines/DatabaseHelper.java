@@ -21,6 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUNA_ENDERECO = "endereco";
     private static final String COLUNA_CIDADE = "cidade";
     private static final String COLUNA_UF = "uf";
+    private static final String COLUNA_IMAGEM_PERFIL_PATH = "imagemPerfilPath";
 
     public DatabaseHelper(Context context) {
         super(context, NOME_BANCO, null, VERSAO);
@@ -34,7 +35,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUNA_TELEFONE + " TEXT, " +
                 COLUNA_ENDERECO + " TEXT, " +
                 COLUNA_CIDADE + " TEXT, " +
-                COLUNA_UF + " TEXT)";
+                COLUNA_UF + " TEXT, " +
+                COLUNA_IMAGEM_PERFIL_PATH + " TEXT)";
         db.execSQL(criarTabela);
     }
 
@@ -44,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void inserirContato(String nome, String telefone, String endereco, String cidade, String uf) {
+    public void inserirContato(String nome, String telefone, String endereco, String cidade, String uf, String imagemPerfilPath) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues valores = new ContentValues();
@@ -53,6 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         valores.put(COLUNA_ENDERECO, endereco);
         valores.put(COLUNA_CIDADE, cidade);
         valores.put(COLUNA_UF, uf);
+        valores.put(COLUNA_IMAGEM_PERFIL_PATH, imagemPerfilPath);
 
         db.insert(TABELA_CONTATOS, null, valores);
         db.close();
@@ -73,8 +76,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String endereco = cursor.getString(3);
                 String cidade = cursor.getString(4);
                 String uf = cursor.getString(5);
+                String imagemPerfilPath = cursor.getString(6);
 
-                lista.add(new Contato(id, nome, telefone, endereco, cidade, uf));
+                lista.add(new Contato(id, nome, telefone, endereco, cidade, uf, imagemPerfilPath));
             } while(cursor.moveToNext());
         }
 
@@ -98,8 +102,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String endereco = cursor.getString(3);
                 String cidade = cursor.getString(4);
                 String uf = cursor.getString(5);
+                String imagemPerfilPath = cursor.getString(6);
 
-                lista.add(new Contato(id, nome, telefone, endereco, cidade, uf));
+                lista.add(new Contato(id, nome, telefone, endereco, cidade, uf, imagemPerfilPath));
             } while(cursor.moveToNext());
         }
 
@@ -123,8 +128,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String endereco = cursor.getString(3);
                 String cidade = cursor.getString(4);
                 String uf = cursor.getString(5);
+                String imagemPerfilPath = cursor.getString(6);
 
-                lista.add(new Contato(id, nome, telefone, endereco, cidade, uf));
+                lista.add(new Contato(id, nome, telefone, endereco, cidade, uf, imagemPerfilPath));
             } while(cursor.moveToNext());
         }
 
@@ -148,8 +154,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String endereco = cursor.getString(3);
                 String cidade = cursor.getString(4);
                 String uf = cursor.getString(5);
+                String imagemPerfilPath = cursor.getString(6);
 
-                lista.add(new Contato(id, nomeContato, telefone, endereco, cidade, uf));
+                lista.add(new Contato(id, nomeContato, telefone, endereco, cidade, uf, imagemPerfilPath));
             } while(cursor.moveToNext());
         }
 
@@ -174,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void atualizarContato(int id, String nome, String telefone, String endereco, String cidade, String uf) {
+    public void atualizarContato(int id, String nome, String telefone, String endereco, String cidade, String uf, String imagemPerfilPath) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues valores = new ContentValues();
@@ -183,6 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         valores.put(COLUNA_ENDERECO, endereco);
         valores.put(COLUNA_CIDADE, cidade);
         valores.put(COLUNA_UF, uf);
+        valores.put(COLUNA_IMAGEM_PERFIL_PATH, imagemPerfilPath);
 
         db.update(TABELA_CONTATOS, valores, COLUNA_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();

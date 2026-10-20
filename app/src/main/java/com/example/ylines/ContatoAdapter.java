@@ -2,6 +2,7 @@ package com.example.ylines;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.List;
 
 import com.example.ylines.Contato;
@@ -54,6 +56,17 @@ public class ContatoAdapter extends BaseAdapter {
         ImageButton btnExcluir = convertView.findViewById(R.id.btnExcluir);
         LinearLayout linearLayoutContato = convertView.findViewById(R.id.linearLayoutContato);
 
+        String imagemPerfilPath = contato.getImagemPerfilPath();
+
+        if (imagemPerfilPath != null && !imagemPerfilPath.isEmpty()) {
+
+            File arquivo = new File(imagemPerfilPath);
+
+            if (arquivo.exists()) {
+                btnVisualizar.setImageURI(Uri.fromFile(arquivo));
+            }
+        }
+
         txtNome.setText(contato.getNome());
         txtTelefone.setText(contato.getTelefone());
 
@@ -65,6 +78,7 @@ public class ContatoAdapter extends BaseAdapter {
             intent.putExtra("endereco", contato.getEndereco());
             intent.putExtra("cidade", contato.getCidade());
             intent.putExtra("uf", contato.getUf());
+            intent.putExtra("imagemPerfilPath", contato.getImagemPerfilPath() != null ? contato.getImagemPerfilPath() : "");
             context.startActivity(intent);
         });
 
@@ -75,6 +89,7 @@ public class ContatoAdapter extends BaseAdapter {
             intent.putExtra("endereco", contato.getEndereco());
             intent.putExtra("cidade", contato.getCidade());
             intent.putExtra("uf", contato.getUf());
+            intent.putExtra("imagemPerfilPath", contato.getImagemPerfilPath() != null ? contato.getImagemPerfilPath() : "");
             context.startActivity(intent);
         });
 
@@ -93,6 +108,7 @@ public class ContatoAdapter extends BaseAdapter {
             intent.putExtra("endereco", contato.getEndereco());
             intent.putExtra("cidade", contato.getCidade());
             intent.putExtra("uf", contato.getUf());
+            intent.putExtra("imagemPerfilPath", contato.getImagemPerfilPath() != null ? contato.getImagemPerfilPath() : "");
             context.startActivity(intent);
         });
 
