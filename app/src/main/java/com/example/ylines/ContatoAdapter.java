@@ -94,11 +94,7 @@ public class ContatoAdapter extends BaseAdapter {
         });
 
         btnExcluir.setOnClickListener(v -> {
-            DatabaseHelper dbHelper = new DatabaseHelper(context);
-            dbHelper.deletarContato(contato.getId());
-            contatos.remove(position);
-            notifyDataSetChanged();
-            Toast.makeText(context, "Contato excluído", Toast.LENGTH_SHORT).show();
+            mostrarDialogoExclusao(contato, position);
         });
 
         linearLayoutContato.setOnClickListener(v -> {
@@ -114,5 +110,20 @@ public class ContatoAdapter extends BaseAdapter {
 
 
         return convertView;
+    }
+
+    private void mostrarDialogoExclusao(Contato contato, int position) {
+        new android.app.AlertDialog.Builder(context)
+                .setTitle("Excluir Contato")
+                .setMessage("Tem certeza de que deseja excluir este contato?")
+                .setPositiveButton("Sim", (dialog, which) -> {
+                    DatabaseHelper dbHelper = new DatabaseHelper(context);
+                    dbHelper.deletarContato(contato.getId());
+                    contatos.remove(position);
+                    notifyDataSetChanged();
+                    Toast.makeText(context, "Contato excluído", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("Não", null)
+                .show();
     }
 }

@@ -1,10 +1,13 @@
 package com.example.ylines;
 
 import android.content.Intent;
+import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,6 +18,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
@@ -74,6 +78,7 @@ public class EditarContato extends AppCompatActivity {
 
         edtTxtNome = findViewById(R.id.edtTxtNome);
         edtTxtTelefone = findViewById(R.id.edtTxtTelefone);
+        aplicarMascaraTelefone();
         edtTxtEndereco = findViewById(R.id.edtTxtEndereco);
         edtTxtCidade = findViewById(R.id.edtTxtCidade);
         edtTxtUf = findViewById(R.id.edtTxtUf);
@@ -104,7 +109,7 @@ public class EditarContato extends AppCompatActivity {
         carregarImagem();
 
         btnVoltar.setOnClickListener(v -> {
-            finish();
+                mostrarDialogoCancelamento();
         });
 
         btnGaleria.setOnClickListener(v -> {
@@ -125,22 +130,35 @@ public class EditarContato extends AppCompatActivity {
         });
 
         btnSalvar.setOnClickListener(v -> {
+                if(
+                        edtTxtNome.getText().toString().isEmpty() ||
+                        edtTxtTelefone.getText().toString().isEmpty() ||
+                        edtTxtEndereco.getText().toString().isEmpty() ||
+                        edtTxtCidade.getText().toString().isEmpty() ||
+                        edtTxtUf.getText().toString().isEmpty()
+                ) {
+                       Toast.makeText(
+                               EditarContato.this,
+                               "Preencha todos os campos",
+                               Toast.LENGTH_SHORT
+                       ).show(); 
+                } else {
+                        dbHelper.atualizarContato(
+                                id,
+                                edtTxtNome.getText().toString(),
+                                edtTxtTelefone.getText().toString(),
+                                edtTxtEndereco.getText().toString(),
+                                edtTxtCidade.getText().toString(),
+                                edtTxtUf.getText().toString(),
+                                imagemPerfilPath != null
+                                        ? imagemPerfilPath
+                                        : ""
+                        );
 
-            dbHelper.atualizarContato(
-                    id,
-                    edtTxtNome.getText().toString(),
-                    edtTxtTelefone.getText().toString(),
-                    edtTxtEndereco.getText().toString(),
-                    edtTxtCidade.getText().toString(),
-                    edtTxtUf.getText().toString(),
-                    imagemPerfilPath != null
-                            ? imagemPerfilPath
-                            : ""
-            );
+                        setResult(RESULT_OK);
 
-            setResult(RESULT_OK);
-
-            finish();
+                        finish();
+                }
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(
@@ -162,6 +180,71 @@ public class EditarContato extends AppCompatActivity {
                     return insets;
                 }
         );
+    }
+
+    private void aplicarMascaraTelefone() {
+        edtTxtTelefone.addTextChangedListener(new TextWatcher() {
+            private boolean formatando = false;
+
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s,
+                    int start,
+                    int count,
+                    int after
+            ) {
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count
+            ) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (formatando) return;
+
+                formatando = true;
+
+                String numeros = s.toString().replaceAll("[^0-9]", "");
+                if (numeros.length() > 11) {
+                    numeros = numeros.substring(0, 11);
+                }
+
+                StringBuilder formatado = new StringBuilder();
+                if (numeros.length() > 0) {
+                    formatado.append("(");
+                    formatado.append(numeros, 0, Math.min(2, numeros.length()));
+
+                    if (numeros.length() >= 2) {
+                        formatado.append(") ");
+                    }
+                }
+
+                if (numeros.length() > 2) {
+                    if (numeros.length() > 6) {
+                        formatado.append(
+                                numeros,
+                                2,
+                                numeros.length() - 4
+                        );
+                        formatado.append("-");
+                        formatado.append(numeros.substring(numeros.length() - 4));
+                    } else {
+                        formatado.append(numeros.substring(2));
+                    }
+                }
+
+                edtTxtTelefone.setText(formatado.toString());
+                edtTxtTelefone.setSelection(formatado.length());
+
+                formatando = false;
+            }
+        });
     }
 
     private void carregarImagem() {
@@ -374,6 +457,32 @@ public class EditarContato extends AppCompatActivity {
                         Intent.FLAG_GRANT_READ_URI_PERMISSION
         );
 
-        tirarFoto.launch(intent);
+        if (intent.resolveActivity(getPackageManager()) == null) {
+            Toast.makeText(
+                    this,
+                    "Nenhum aplicativo de câmera está disponível",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        try {
+            tirarFoto.launch(intent);
+        } catch (SecurityException | ActivityNotFoundException e) {
+            Toast.makeText(
+                    this,
+                    "Não foi possível abrir a câmera. Verifique as permissões do app.",
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+    }
+
+    private void mostrarDialogoCancelamento() {
+        new AlertDialog.Builder(this)
+                .setTitle("Cancelar Contato?")
+                .setMessage("Se sair agora, todas as alterações serão perdidas. Tem a certeza?")
+                .setPositiveButton("Sim, sair", (dialog, which) -> finish())
+                .setNegativeButton("Não, continuar", null)
+                .show();
     }
 }

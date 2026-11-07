@@ -12,6 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listViewContatos;
 
-    Button btnAddContato;
+    FloatingActionButton btnAddContato;
 
     DatabaseHelper dbHelper;
 
