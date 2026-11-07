@@ -92,14 +92,45 @@ public class VerContato extends AppCompatActivity {
             Toast.makeText(this, "Endereço copiado para a área de transferência", Toast.LENGTH_SHORT).show();
         });
 
+        btnLigar.setOnClickListener(v -> {
+            Intent intentLigar = new Intent(Intent.ACTION_DIAL);
+            intentLigar.setData(Uri.parse("tel:" + telefone));
+            startActivity(intentLigar);
+        });
+
+        btnMapa.setOnClickListener(v -> {
+            String enderecoCompleto = endereco + ", " + cidade + ", " + uf;
+            String enderecoFormatado = enderecoCompleto.replace(" ", "+");
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + enderecoFormatado);
+            Intent intentMapa = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            intentMapa.setPackage("com.google.android.apps.maps");
+            startActivity(intentMapa);
+        });
+
         Intent intent = getIntent();
 
-        nome = intent.getStringExtra("nome");
-        telefone = intent.getStringExtra("telefone");
-        endereco = intent.getStringExtra("endereco");
-        cidade = intent.getStringExtra("cidade");
-        uf = intent.getStringExtra("uf");
-        imagemPerfilPath = intent.getStringExtra("imagemPerfilPath");
+        nome = textoExtra(intent, "nome");
+
+        if (nome.length() > 32) {
+            nome = nome.substring(0, 32) + "...";
+        }
+
+        telefone = textoExtra(intent, "telefone");
+        endereco = textoExtra(intent, "endereco");
+        
+        if (endereco.length() > 48) {
+            endereco = endereco.substring(0, 48) + "...";
+        }
+
+        cidade = textoExtra(intent, "cidade");
+
+        if (cidade.length() > 24) {
+            cidade = cidade.substring(0, 24) + "...";
+        }
+
+        uf = textoExtra(intent, "uf");
+
+        imagemPerfilPath = textoExtra(intent, "imagemPerfilPath");
 
         /*Encontrar imagem por imagemPerfilPath */
         if(imagemPerfilPath != null && !imagemPerfilPath.isEmpty()) {
@@ -115,5 +146,10 @@ public class VerContato extends AppCompatActivity {
         }
         
         txtCidadeUf.setText(cidade + "/" + uf);
+    }
+
+    private String textoExtra(Intent intent, String chave) {
+        String valor = intent.getStringExtra(chave);
+        return valor != null ? valor : "";
     }
 }

@@ -1,10 +1,13 @@
 package com.example.ylines;
 
 import android.content.Intent;
+import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,6 +18,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
@@ -67,6 +71,7 @@ public class CriarContato extends AppCompatActivity {
 
         edtTxtNome = findViewById(R.id.edtTxtNome);
         edtTxtTelefone = findViewById(R.id.edtTxtTelefone);
+        aplicarMascaraTelefone();
         edtTxtEndereco = findViewById(R.id.edtTxtEndereco);
         edtTxtCidade = findViewById(R.id.edtTxtCidade);
         edtTxtUf = findViewById(R.id.edtTxtUf);
@@ -76,7 +81,17 @@ public class CriarContato extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
 
         btnVoltar.setOnClickListener(v -> {
-            finish();
+            if(
+                    !edtTxtNome.getText().toString().trim().isEmpty()
+                    || !edtTxtTelefone.getText().toString().trim().isEmpty()
+                    || !edtTxtEndereco.getText().toString().trim().isEmpty()
+                    || !edtTxtCidade.getText().toString().trim().isEmpty()
+                    || !edtTxtUf.getText().toString().trim().isEmpty()
+            ) {
+                mostrarDialogoCancelamento();
+            } else {
+                finish();
+            }
         });
 
         btnGaleria.setOnClickListener(v -> {
@@ -94,29 +109,44 @@ public class CriarContato extends AppCompatActivity {
         });
 
         btnSalvar.setOnClickListener(v -> {
+                if(
+                        
+                        edtTxtNome.getText().toString().trim().isEmpty()
+                        || edtTxtTelefone.getText().toString().trim().isEmpty()
+                        || edtTxtEndereco.getText().toString().trim().isEmpty()
+                        || edtTxtCidade.getText().toString().trim().isEmpty()
+                        || edtTxtUf.getText().toString().trim().isEmpty()
+                ) {
+                        Toast.makeText(
+                                CriarContato.this,
+                                "Preencha todos os campos",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                } else {
+                        String nome = edtTxtNome.getText().toString().trim();
+                        String telefone = edtTxtTelefone.getText().toString().trim();
+                        String endereco = edtTxtEndereco.getText().toString().trim();
+                        String cidade = edtTxtCidade.getText().toString().trim();
+                        String uf = edtTxtUf.getText().toString().trim();
 
-            String nome = edtTxtNome.getText().toString().trim();
-            String telefone = edtTxtTelefone.getText().toString().trim();
-            String endereco = edtTxtEndereco.getText().toString().trim();
-            String cidade = edtTxtCidade.getText().toString().trim();
-            String uf = edtTxtUf.getText().toString().trim();
+                        dbHelper.inserirContato(
+                                nome,
+                                telefone,
+                                endereco,
+                                cidade,
+                                uf,
+                                imagemPerfilPath
+                        );
 
-            dbHelper.inserirContato(
-                    nome,
-                    telefone,
-                    endereco,
-                    cidade,
-                    uf,
-                    imagemPerfilPath
-            );
+                        Toast.makeText(
+                                CriarContato.this,
+                                "Contato adicionado!",
+                                Toast.LENGTH_SHORT
+                        ).show();
 
-            Toast.makeText(
-                    CriarContato.this,
-                    "Contato adicionado!",
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            finish();
+                        finish();    
+                }
+                
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(
@@ -137,6 +167,71 @@ public class CriarContato extends AppCompatActivity {
                     return insets;
                 }
         );
+    }
+
+    private void aplicarMascaraTelefone() {
+        edtTxtTelefone.addTextChangedListener(new TextWatcher() {
+            private boolean formatando = false;
+
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s,
+                    int start,
+                    int count,
+                    int after
+            ) {
+            }
+
+            @Override
+            public void onTextChanged(
+                    CharSequence s,
+                    int start,
+                    int before,
+                    int count
+            ) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (formatando) return;
+
+                formatando = true;
+
+                String numeros = s.toString().replaceAll("[^0-9]", "");
+                if (numeros.length() > 11) {
+                    numeros = numeros.substring(0, 11);
+                }
+
+                StringBuilder formatado = new StringBuilder();
+                if (numeros.length() > 0) {
+                    formatado.append("(");
+                    formatado.append(numeros, 0, Math.min(2, numeros.length()));
+
+                    if (numeros.length() >= 2) {
+                        formatado.append(") ");
+                    }
+                }
+
+                if (numeros.length() > 2) {
+                    if (numeros.length() > 6) {
+                        formatado.append(
+                                numeros,
+                                2,
+                                numeros.length() - 4
+                        );
+                        formatado.append("-");
+                        formatado.append(numeros.substring(numeros.length() - 4));
+                    } else {
+                        formatado.append(numeros.substring(2));
+                    }
+                }
+
+                edtTxtTelefone.setText(formatado.toString());
+                edtTxtTelefone.setSelection(formatado.length());
+
+                formatando = false;
+            }
+        });
     }
 
     private final ActivityResultLauncher<PickVisualMediaRequest> selecionarImagem
@@ -303,6 +398,32 @@ public class CriarContato extends AppCompatActivity {
                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                 | Intent.FLAG_GRANT_READ_URI_PERMISSION
         );
-        tirarFoto.launch(intent);
+        if (intent.resolveActivity(getPackageManager()) == null) {
+            Toast.makeText(
+                    this,
+                    "Nenhum aplicativo de câmera está disponível",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+
+        try {
+            tirarFoto.launch(intent);
+        } catch (SecurityException | ActivityNotFoundException e) {
+            Toast.makeText(
+                    this,
+                    "Não foi possível abrir a câmera. Verifique as permissões do app.",
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+    }
+
+    private void mostrarDialogoCancelamento() {
+        new AlertDialog.Builder(this)
+                .setTitle("Cancelar Contato?")
+                .setMessage("Se sair agora, todos os dados digitados serão perdidos. Tem a certeza?")
+                .setPositiveButton("Sim, sair", (dialog, which) -> finish())
+                .setNegativeButton("Não, continuar", null)
+                .show();
     }
 }
